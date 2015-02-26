@@ -16,7 +16,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle (required)
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " YADR's vundles are split up by category into smaller files
 " This reduces churn and makes it easier to fork. See
