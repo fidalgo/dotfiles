@@ -18,16 +18,11 @@ call vundle#begin()
 " let Vundle manage Vundle (required)
 Plugin 'gmarik/Vundle.vim'
 
-" YADR's vundles are split up by category into smaller files
-" This reduces churn and makes it easier to fork. See
-" ~/.vim/vundles/ to edit them:
-"runtime ruby.vundle
 Plugin 'tpope/vim-rails.git'
 Plugin 'tpope/vim-rake.git'
 Plugin 'tpope/vim-rvm.git'
 Plugin 'vim-ruby/vim-ruby.git'
 Plugin 'Keithbsmiley/rspec.vim'
-Plugin 'skwp/vim-iterm-rspec'
 Plugin 'skwp/vim-spec-finder'
 Plugin 'ck3g/vim-change-hash-syntax'
 Plugin 'tpope/vim-bundler'
@@ -64,7 +59,6 @@ Plugin 'skwp/vim-colors-solarized'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jby/tmux.vim.git'
 Plugin 'morhetz/gruvbox'
-"Plugin 'xsunsmile/showmarks.git'
 
 
 "runtime textobjects.vundle
@@ -101,7 +95,7 @@ Plugin 'xolox/vim-session'
 "Plugin 'Shougo/unite.vim'
 "Plugin 'Shougo/vimfiler.vim'
 
-"runtime vim-improvements.vundle
+" vim improvements
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'Shougo/neocomplete.git'
