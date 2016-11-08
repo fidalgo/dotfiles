@@ -1,3 +1,12 @@
+" ========================================
+" Vim plugins configuration
+" ========================================
+
+" Appearance
+syntax enable
+set background=dark
+colorscheme solarized
+
 
 " AutoTag
 " Seems to have problems with some vim files
@@ -10,8 +19,3 @@ map E <Plug>CamelCaseMotion_e
 sunmap W
 sunmap B
 sunmap E
-
-
-for fpath in split(globpath('~/.vim/settings', '*.vim'), '\n')
-  exe 'source' fpath
-endfor
