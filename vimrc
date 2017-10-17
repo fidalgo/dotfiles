@@ -98,6 +98,13 @@ set sidescroll=1
 " Other settings
 :let g:session_autosave = 'no'
 
+"
+" ================ GUI Settings ========================
+if has('gui_running')
+  set guioptions-=T  "remove toolbar
+  set guioptions-=r  "remove right-hand scroll bar
+endif
+
 " ================ Custom Settings ========================
 if filereadable(expand("~/.vim/settings.vim"))
   "source ~/.vim/settings.vim
