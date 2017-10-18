@@ -16,7 +16,7 @@ git clone git@github.com:fidalgo/vim-dotfiles.git
 ```
 
 and then run the installer (change it if you need)
+
 ```sh
 ./install.sh
 ```
-
