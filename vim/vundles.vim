@@ -43,13 +43,15 @@ Plugin 'jiangmiao/auto-pairs'
 " Tab completions
 Plugin 'ervandew/supertab'
 " Fuzzy finder for vim (CTRL+P)
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 " For tests
 Plugin 'janko-m/vim-test'
 " Navigation tree
 Plugin 'scrooloose/nerdtree'
 " Dispatching the test runner to tmux pane
 Plugin 'tpope/vim-dispatch'
+" Match blocks and brackets
+Plugin 'andymass/vim-matchup'
 
 Plugin 'plasticboy/vim-markdown'
 " Open a file at line number file:23
