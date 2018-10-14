@@ -6,7 +6,14 @@
 syntax enable
 set background=dark
 colorscheme solarized
+set guifont=Inconsolata\ 10
 
+" Use ripgrep if available in ctrlp
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
 
 " AutoTag
 " Seems to have problems with some vim files
