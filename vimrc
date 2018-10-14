@@ -107,5 +107,5 @@ endif
 
 " ================ Custom Settings ========================
 if filereadable(expand("~/.vim/settings.vim"))
-  "source ~/.vim/settings.vim
+  source ~/.vim/settings.vim
 endif
