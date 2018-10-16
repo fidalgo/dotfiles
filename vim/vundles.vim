@@ -54,8 +54,15 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'andymass/vim-matchup'
 
 Plugin 'plasticboy/vim-markdown'
+" Asynchronous Lint Engine
+Plugin 'w0rp/ale'
 " Open a file at line number file:23
 Plugin 'kopischke/vim-fetch'
+
+" Airline status bar
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
