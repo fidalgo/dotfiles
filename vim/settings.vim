@@ -6,7 +6,7 @@
 syntax enable
 set background=dark
 colorscheme solarized
-set guifont=Inconsolata\ 10
+set guifont=Inconsolata\ 12
 
 " ctrlp settings
 " If a file is already open, open it again in a new pane instead of switching to the existing pane
@@ -15,12 +15,15 @@ let g:ctrlp_switch_buffer = 'et'
 " Use ripgrep if available in ctrlp
 if executable('rg')
   set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_user_command = 'rg -i %s --files --color=never --glob ""'
   let g:ctrlp_use_caching = 0
+  " ack
+  let g:ackprg = 'rg -i --vimgrep'
 endif
 
 " Airline
-let g:airline_theme = 'jellybeans'
+let g:airline_theme = 'solarized'
+let g:airline_solarized_bg = ''
 let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline#extensions#whitespace#enabled = 1
@@ -43,13 +46,34 @@ let g:airline_section_z = '%3p%% %#__accent_bold#%4l%#__restore__#:%3'
 let g:airline_section_z = '%3p%% %{substitute(line("."), "\\v(\\d)((\\d\\d\\d)+\\d@!)@=", "\\1,", "g")}|%{substitute(line("$"), "\\v(\\d)((\\d\\d\\d)+\\d@!)@=", "\\1,", "g")}'
 
 let g:airline#extensions#default#layout = [
-  \ [ 'a', 'b', 'warning', 'c' ],
-  \ [ 'x', 'y', 'z' ]
-\ ]
+      \ [ 'a', 'b', 'warning', 'c' ],
+      \ [ 'x', 'y', 'z' ]
+      \ ]
 
 " AutoTag
 " Seems to have problems with some vim files
 let g:autotagExcludeSuffixes="tml.xml.text.txt.vim"
+
+" ALE
+let g:ale_linters = {'ruby': ['rubocop'], 'yaml': ['yamllint']}
+let g:ale_fixers = {
+      \'*': ['remove_trailing_lines', 'trim_whitespace'],
+      \'ruby': ['rubocop'],
+      \'yaml': ['prettier'],
+      \}
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_delay = 2000 " lint every 2secs
+
+" Bind F8 to fixing problems with ALE
+nmap <F8> <Plug>(ale_fix)
+" NERDTree syntax highlight
+let g:NERDTreeFileExtensionHighlightFullName = 1
+
+" Disable asking for saving/loading sessions
+let g:session_autosave = 0
+let g:session_autoload = 0
+
 
 " CamelCaseMotion
 map W <Plug>CamelCaseMotion_w

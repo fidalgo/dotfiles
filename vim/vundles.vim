@@ -59,9 +59,19 @@ Plugin 'w0rp/ale'
 " Open a file at line number file:23
 Plugin 'kopischke/vim-fetch'
 
+" Extended Session management
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+
+" ack search
+Plugin 'mileszs/ack.vim'
+
 " Airline status bar
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+" Add git status to NERDTree
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
