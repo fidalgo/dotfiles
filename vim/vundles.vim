@@ -53,6 +53,7 @@ Plugin 'tpope/vim-dispatch'
 " Match blocks and brackets
 Plugin 'andymass/vim-matchup'
 
+Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 " Asynchronous Lint Engine
 Plugin 'w0rp/ale'

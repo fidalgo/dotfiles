@@ -12,6 +12,9 @@ set guifont=Inconsolata\ 12
 " If a file is already open, open it again in a new pane instead of switching to the existing pane
 let g:ctrlp_switch_buffer = 'et'
 
+" disable markdown folding
+let g:vim_markdown_folding_disabled = 1
+
 " Use ripgrep if available in ctrlp
 if executable('rg')
   set grepprg=rg\ --color=never
