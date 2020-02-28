@@ -32,6 +32,9 @@ install () {
   # ln -sf "$INSTALL_TO/vimrc" .vimrc
   # ln -sf "$INSTALL_TO/vim" .vim
 
+  echo "Copying .vimrc"
+  cp gemrc ~/.gemrc
+
   echo "Installed and configured .vim, have fun."
 }
 
