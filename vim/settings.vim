@@ -60,6 +60,7 @@ let g:autotagExcludeSuffixes="tml.xml.text.txt.vim"
 " ALE
 let g:ale_linters = {
       \'ruby': ['rubocop'],
+      \'eruby': ['erubi'],
       \'yaml': ['prettier'],
       \'json': ['prettier'],
       \'javascript': ['prettier'],
