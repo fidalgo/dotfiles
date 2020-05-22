@@ -1,7 +1,5 @@
-# vim-dotfiles
-vim dotfiles targeted for Ruby on Rails development
-
-This project started from the https://github.com/skwp/dotfiles project, although I've found it overwhelming and started trimming the unused stuff.
+# dotfiles
+dottfiles targeted for Ruby on Rails development.
 
 I've been used this with Linux (Fedora) and with Bash shell.
 
@@ -12,7 +10,7 @@ If you have any comment or suggestion please contact me.
 Clone the repository:
 
 ```sh
-git clone git@github.com:fidalgo/vim-dotfiles.git
+git clone git@github.com:fidalgo/dotfiles.git
 ```
 
 and then run the installer (change it if you need)
