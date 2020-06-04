@@ -58,6 +58,8 @@ let g:airline#extensions#default#layout = [
 let g:autotagExcludeSuffixes="tml.xml.text.txt.vim"
 
 " ALE
+let g:ale_ruby_rubocop_executable = 'bundle'
+
 let g:ale_linters = {
       \'ruby': ['rubocop'],
       \'eruby': ['erubi'],
