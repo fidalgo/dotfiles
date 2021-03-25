@@ -87,6 +87,8 @@ let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:session_autosave = 0
 let g:session_autoload = 0
 
+" use the new format for Snipmate
+let g:snipMate = { 'snippet_version' : 1 }
 
 " CamelCaseMotion
 map W <Plug>CamelCaseMotion_w

@@ -15,11 +15,10 @@ backup () {
 install () {
   cd $CURRENT_DIR
   mkdir -p $INSTALL_TO
-  # Download vim plugin bundles
-  # git submodule init
-  # git submodule update
-  echo "Cloning Vundle..."
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+  echo "Installing vim-plug"
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   echo "Copying .vimrc"
   cp vimrc ~/.vimrc
@@ -27,13 +26,11 @@ install () {
   echo "Copying vim plugins and settings"
   cp -rv vim/* "$INSTALL_TO"
 
-  # Symlink ~/.vim and ~/.vimrc
-  # cd ~
-  # ln -sf "$INSTALL_TO/vimrc" .vimrc
-  # ln -sf "$INSTALL_TO/vim" .vim
-
-  echo "Copying .vimrc"
-  cp gemrc ~/.gemrc
+  echo "Copying config files"
+  for file in config/*;
+  do
+    cp -v "$file" ~/.$(basename $file);
+  done
 
   echo "Installed and configured .vim, have fun."
 }
@@ -42,4 +39,4 @@ install () {
 install
 
 #Installing the plugins
-vim +PluginInstall +qall
+vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
