@@ -1,0 +1,23 @@
+[user]
+  email = paulo.fidalgo.pt@gmail.com
+  name = Paulo Fidalgo
+  signingkey = 268A6E53B27F8F9F
+[core]
+  editor = vim
+  attributesfile = ~/.gitattributes
+[diff]
+  tool = meld
+[commit]
+  gpgsign = true
+[fetch]
+  prune = true
+[pull]
+  rebase = true
+[push]
+  default = current
+
+[diff "rspec"]
+  xfuncname = "^[ \t]*((RSpec|describe|context|it|before|after|around|feature|scenario)[ \t].*)$"
+[diff "javascript"]
+  xfuncname = "^[\t ]*(constructor|public|private|protected).*$"
+  wordRegex = "^[\t ]*(const|let|var)[^()]*=[\t ]*\\([^()]*\\)[\t ]*=>*$"
