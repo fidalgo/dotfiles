@@ -33,8 +33,9 @@ Plug 'jiangmiao/auto-pairs'
 " Tab completions
 Plug 'ervandew/supertab'
 
-" Fuzzy finder for vim (CTRL+P)
-Plug 'ctrlpvim/ctrlp.vim'
+" Fuzzy finder for vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " For tests
 Plug 'janko-m/vim-test'
