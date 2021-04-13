@@ -8,10 +8,6 @@ set background=dark
 colorscheme solarized
 set guifont=Inconsolata\ 12
 
-" ctrlp settings
-" If a file is already open, open it again in a new pane instead of switching to the existing pane
-let g:ctrlp_switch_buffer = 'et'
-
 " disable markdown folding
 let g:vim_markdown_folding_disabled = 1
 
@@ -90,6 +86,11 @@ let g:session_autoload = 0
 " use the new format for Snipmate
 let g:snipMate = { 'snippet_version' : 1 }
 
+" fzf bindings
+nnoremap \ :Rg<CR>
+nnoremap <Leader>f :Files<cr>
+nnoremap <Leader>b :Buffers<cr>
+
 " CamelCaseMotion
 map W <Plug>CamelCaseMotion_w
 map B <Plug>CamelCaseMotion_b
@@ -97,3 +98,17 @@ map E <Plug>CamelCaseMotion_e
 sunmap W
 sunmap B
 sunmap E
+
+" Based on the RipgrepFzf function, will search using RipGrep on search term
+function! RipgrepSearch(fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let search = getreg('/')
+  " translate vim regular expression to perl regular expression.
+  let search = substitute(search, '\(\\<\|\\>\)', '\\b', 'g')
+  let initial_command = printf(command_fmt, shellescape(search))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', search, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RgS call RipgrepSearch(<bang>0)
