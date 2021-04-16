@@ -4,73 +4,41 @@
 "
 " This file contains the list of plugins installed
 call plug#begin('~/.vim/plugged')
-
-" Dependencies of snipmate
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'honza/vim-snippets'
-
-Plug 'garbas/vim-snipmate'
-
-" Git tools
-Plug 'tpope/vim-fugitive'
-
-" Rails :/
-Plug 'tpope/vim-rails'
-
-" Commenting and uncommenting stuff
-Plug 'tomtom/tcomment_vim'
-
-" Vim Ruby
-Plug 'vim-ruby/vim-ruby'
-
-" Surround your code :)
-Plug 'tpope/vim-surround'
-
-" Every one should have a pair (Autogenerate pairs for "{[( )
-Plug 'jiangmiao/auto-pairs'
-
-" Tab completions
-Plug 'ervandew/supertab'
-
-" Fuzzy finder for vim
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" For tests
-Plug 'janko-m/vim-test'
-
-" Navigation tree
-Plug 'scrooloose/nerdtree'
-
-" Dispatching the test runner to tmux pane
-Plug 'tpope/vim-dispatch'
-
-" Match blocks and brackets
-Plug 'andymass/vim-matchup'
-
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-" Asynchronous Lint Engine
-Plug 'w0rp/ale'
-
-" Open a file at line number file:23
-Plug 'kopischke/vim-fetch'
-
-" Extended Session management
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
-" Rust related plugins
-Plug 'rust-lang/rust.vim'
-
-" Airline status bar
-Plug 'vim-airline/vim-airline'
+" ########################################
+" Vim visual improvments
+" ########################################
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'altercation/vim-colors-solarized'
-" Add git status to NERDTree
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" ########################################
+" Vim plugins & enhancements
+" ########################################
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'  " Add git status to NERDTree
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder for vim
+Plug 'junegunn/fzf.vim'
+Plug 'kopischke/vim-fetch' " Open a file at line number file:23
+
+" ########################################
+" Language & Frameworks support
+" ########################################
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'rust-lang/rust.vim'
+
+" ########################################
+" Git
+" ########################################
+Plug 'tpope/vim-fugitive'
+
+" ########################################
+" Linters and Fixers and language agnostic aids
+" ########################################
+Plug 'tomtom/tcomment_vim' " Commenting and uncommenting
+Plug 'LunarWatcher/auto-pairs', { 'tag': '*' } " Autogenerate pairs for "{[( )
+Plug 'ervandew/supertab' " Tab completions
+Plug 'andymass/vim-matchup' " Match blocks and brackets
+Plug 'w0rp/ale' " Asynchronous Lint Engine
 
 call plug#end()
