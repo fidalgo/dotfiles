@@ -12,10 +12,16 @@ backup () {
   mv -v .vim* $destination/
 }
 
-install () {
-  cd $CURRENT_DIR
-  mkdir -p $INSTALL_TO
+bash(){
+  echo "Copying bashrc files"
+cp -rv bashrc.d "$HOME/"
 
+if ! grep -qF '"$HOME"/.bashrc.d/*.bash' "$HOME/.bashrc";then
+  echo "$CODE" >> "$HOME/.bashrc"
+fi
+}
+
+vim_settings(){
   echo "Installing vim-plug"
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -25,14 +31,29 @@ install () {
 
   echo "Copying vim plugins and settings"
   cp -rv vim/* "$INSTALL_TO"
+}
 
+config(){
   echo "Copying config files"
   for file in config/*;
   do
     cp -v "$file" ~/.$(basename $file);
   done
+}
 
-  echo "Installed and configured .vim, have fun."
+install () {
+  cd $CURRENT_DIR
+  mkdir -p $INSTALL_TO
+
+echo  "################################################################################"
+  bash
+echo "--------------------------------------------------------------------------------"
+echo  "################################################################################"
+  vim_settings
+echo "--------------------------------------------------------------------------------"
+echo  "################################################################################"
+  config
+echo "--------------------------------------------------------------------------------"
 }
 
 # backup
@@ -40,3 +61,6 @@ install
 
 #Installing the plugins
 vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
+
+
+echo "🎉🎉🎉 All Installed and configured, have fun.🎉🎉🎉"
