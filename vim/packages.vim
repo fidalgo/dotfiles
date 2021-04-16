@@ -62,8 +62,8 @@ Plug 'kopischke/vim-fetch'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 
-" ack search
-Plug 'mileszs/ack.vim'
+" Rust related plugins
+Plug 'rust-lang/rust.vim'
 
 " Airline status bar
 Plug 'vim-airline/vim-airline'

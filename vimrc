@@ -12,6 +12,7 @@ set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set encoding=UTF-8
+set colorcolumn=120
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -69,9 +70,10 @@ set linebreak    "Wrap lines at convenient points
 
 " ================ Folds ============================
 
-"set foldmethod=indent   "fold based on indent
-"set foldnestmax=3       "deepest fold is 3 levels
-"set nofoldenable        "dont fold by default
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1
 
 " ================ Completion =======================
 

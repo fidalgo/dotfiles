@@ -62,6 +62,7 @@ let g:ale_linters = {
       \'yaml': ['prettier'],
       \'json': ['prettier'],
       \'javascript': ['prettier'],
+      \'rust': ['rustc', 'cargo'],
       \}
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -69,10 +70,12 @@ let g:ale_fixers = {
       \'yaml': ['prettier'],
       \'json': ['prettier'],
       \'javascript': ['prettier'],
+      \'rust': ['rustfmt'],
       \}
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_delay = 2000 " lint every 2secs
+let g:ale_rust_cargo_use_check = 1
 
 " Bind F8 to fixing problems with ALE
 nmap <F8> <Plug>(ale_fix)
