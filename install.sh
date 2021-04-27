@@ -13,14 +13,15 @@ backup () {
 }
 
 bash(){
-read -d '' code << EOF
-if [[ -d $HOME/.config/bashrc.d ]] ; then
-  for config in "$HOME"/.config/bashrc.d/*.bash ; do
+#read -d '' code << EOF
+code=$(cat <<'EOF'
+if [[ -d "$HOME"/.config/bashrc.d ]] ; then
+  for config in $HOME/.config/bashrc.d/*.bash ; do
     . "$config"
   done
 fi
 EOF
-
+)
 echo "Copying bashrc files"
 cp -rv bashrc.d "$HOME/.config/"
 
