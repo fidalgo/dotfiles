@@ -115,3 +115,6 @@ function! RipgrepSearch(fullscreen)
 endfunction
 
 command! -nargs=* -bang RgS call RipgrepSearch(<bang>0)
+
+" vim gutter
+highlight! link SignColumn LineNr

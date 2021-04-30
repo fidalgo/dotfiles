@@ -13,7 +13,6 @@ backup () {
 }
 
 bash(){
-#read -d '' code << EOF
 code=$(cat <<'EOF'
 if [[ -d "$HOME"/.config/bashrc.d ]] ; then
   for config in $HOME/.config/bashrc.d/*.bash ; do
@@ -36,7 +35,7 @@ vim_settings(){
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   echo "Copying .vimrc"
-  cp vimrc ~/.vimrc
+  cp -v vimrc ~/.vimrc
 
   echo "Copying vim plugins and settings"
   cp -rv vim/* "$INSTALL_TO"
@@ -69,7 +68,7 @@ install () {
 install
 
 #Installing the plugins
-vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
+vim -es -u vimrc -i NONE -c "PlugUpdate" -c "qa"
 
 
 echo "🎉🎉🎉 All Installed and configured, have fun.🎉🎉🎉"

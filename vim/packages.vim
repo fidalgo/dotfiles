@@ -31,6 +31,7 @@ Plug 'rust-lang/rust.vim'
 " Git
 " ########################################
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " ########################################
 " Linters and Fixers and language agnostic aids
