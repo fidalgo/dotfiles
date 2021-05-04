@@ -5,7 +5,7 @@
 " Appearance
 syntax enable
 set background=dark
-colorscheme solarized
+autocmd vimenter * ++nested colorscheme solarized8
 set guifont=Inconsolata\ 12
 
 " disable markdown folding

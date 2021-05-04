@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 " ########################################
 " Vim visual improvments
 " ########################################
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes'
 
