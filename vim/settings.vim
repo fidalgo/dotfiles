@@ -63,6 +63,7 @@ let g:ale_linters = {
       \'json': ['prettier'],
       \'javascript': ['prettier'],
       \'rust': ['rustc', 'cargo'],
+      \'terraform': ['terraform'],
       \}
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -71,6 +72,7 @@ let g:ale_fixers = {
       \'json': ['prettier'],
       \'javascript': ['prettier'],
       \'rust': ['rustfmt'],
+      \'terraform': ['terraform'],
       \}
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'

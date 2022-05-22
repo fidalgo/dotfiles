@@ -26,6 +26,7 @@ Plug 'kopischke/vim-fetch' " Open a file at line number file:23
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'rust-lang/rust.vim'
+Plug 'hashivim/vim-terraform'
 
 " ########################################
 " Git
@@ -37,7 +38,7 @@ Plug 'airblade/vim-gitgutter'
 " Linters and Fixers and language agnostic aids
 " ########################################
 Plug 'tomtom/tcomment_vim' " Commenting and uncommenting
-Plug 'LunarWatcher/auto-pairs', { 'tag': '*' } " Autogenerate pairs for "{[( )
+Plug 'LunarWatcher/auto-pairs' " Autogenerate pairs for \"{[( )
 Plug 'ervandew/supertab' " Tab completions
 Plug 'andymass/vim-matchup' " Match blocks and brackets
 Plug 'w0rp/ale' " Asynchronous Lint Engine
