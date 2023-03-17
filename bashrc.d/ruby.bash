@@ -1,5 +1,10 @@
-if command -v rbenv &> /dev/null; then
-  eval "$(rbenv init -)"
-fi
-export PATH="$HOME/.rbenv/bin:$PATH"
-export BUNDLE_JOBS=$(getconf _NPROCESSORS_ONLN)
+autoload_rbenv() {
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    unset -f rbenv autoload_rbenv
+}
+
+rbenv() {
+    autoload_rbenv
+    rbenv "$@"
+}

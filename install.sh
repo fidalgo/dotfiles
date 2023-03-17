@@ -11,9 +11,20 @@ backup () {
   destination=$BACKUP_TO/$(date +"%Y-%m-%d_%H-%M-%S")
   mv -v .vim* $destination/
 }
+add_code_to_bashrc() {
+  code_to_add="$1"
+  unique_pattern="$2"
+
+  if ! grep -qF "$unique_pattern" "$HOME/.bashrc"; then
+    echo "$code_to_add" >> "$HOME/.bashrc"
+  fi
+}
+
+
 
 bash(){
-code=$(cat <<'EOF'
+
+  code=$(cat <<'EOF'
 if [[ -d "$HOME"/.config/bashrc.d ]] ; then
   for config in $HOME/.config/bashrc.d/*.bash ; do
     . "$config"
@@ -21,12 +32,13 @@ if [[ -d "$HOME"/.config/bashrc.d ]] ; then
 fi
 EOF
 )
-echo "Copying bashrc files"
+
+echo "Copying bashrc.d files"
 cp -rv bashrc.d "$HOME/.config/"
 
-if ! grep -qF '"$HOME"/.bashrc.d/*.bash' "$HOME/.bashrc";then
-  echo "$code" >> "$HOME/.bashrc"
-fi
+echo "Adding code to load .config/bashrc.d/* files"
+pattern='if [[ -d "$HOME"/.config/bashrc.d ]] ; then'
+add_code_to_bashrc "$code" "$pattern"
 }
 
 vim_settings(){
