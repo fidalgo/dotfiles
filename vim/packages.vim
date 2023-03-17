@@ -19,14 +19,16 @@ Plug 'Xuyuanp/nerdtree-git-plugin'  " Add git status to NERDTree
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder for vim
 Plug 'junegunn/fzf.vim'
 Plug 'kopischke/vim-fetch' " Open a file at line number file:23
+Plug 'Yggdroot/indentLine' " Show vertical lines on identation
 
 " ########################################
 " Language & Frameworks support
 " ########################################
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
-Plug 'rust-lang/rust.vim'
 Plug 'hashivim/vim-terraform'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 
 " ########################################
 " Git

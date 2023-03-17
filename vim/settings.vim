@@ -11,6 +11,18 @@ set guifont=Inconsolata\ 12
 " disable markdown folding
 let g:vim_markdown_folding_disabled = 1
 
+" vim ruby settings
+let ruby_fold = 1
+let ruby_spellcheck_strings = 1
+
+" Yaml settings
+autocmd FileType yaml setlocal et ts=2 ai sw=2 nu sts=0
+set cursorline " Make the curson visible
+let g:indentLine_fileType=['yml', 'yaml']
+
+" Git settings
+autocmd FileType gitcommit setlocal spell
+
 " Use ripgrep if available in ctrlp
 if executable('rg')
   set grepprg=rg\ --color=never

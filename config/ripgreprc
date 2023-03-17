@@ -1,1 +1,4 @@
---glob='!sorbet/*'
+# Ignore patterns
+--glob=!sorbet/*
+--glob=!node_modules/*
+--glob=!Gemfile.lock
