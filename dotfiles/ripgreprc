@@ -2,3 +2,4 @@
 --glob=!sorbet/*
 --glob=!node_modules/*
 --glob=!Gemfile.lock
+--glob '!*/.gitignore'

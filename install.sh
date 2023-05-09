@@ -53,10 +53,14 @@ vim_settings(){
 
 config(){
   echo "Copying config files"
-  for file in config/*;
-  do
-    cp -v "$file" ~/.$(basename $file);
-  done
+    for item in $(find dotfiles -type f -o -type d); do
+        target="$HOME/.${item#dotfiles/}"
+        if [ -d "$item" ]; then
+            mkdir -p "$target"
+        elif [ -f "$item" ]; then
+            cp -v "$item" "$target"
+        fi
+    done
 }
 
 execute(){
@@ -91,7 +95,10 @@ OPT=$1
 
 install
 
-#Installing the plugins
+#Installing the vim plugins
 vim -es -u vimrc -i NONE -c "PlugUpdate" -c "qa"
+
+#Installing the nvim plugins
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo "🎉🎉🎉 All Installed and configured, have fun.🎉🎉🎉"
