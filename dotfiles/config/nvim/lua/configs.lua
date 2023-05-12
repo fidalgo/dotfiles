@@ -1,21 +1,17 @@
-require('lualine').setup {
-  options = {
-    theme = 'solarized_dark'
-  }
-}
+require("solarized").setup({
+	config = {
+		theme = 'neovim',
+		transparent = false
+	}
+})
 
-require("null-ls").setup {
-  sources = {
-    null_ls.builtins.completion.spell,
-    null_ls.builtins.diagnostics.spell,
-    null_ls.builtins.formatting.tidy,
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier,
+require('lualine').setup()
 
-    null_ls.builtins.diagnostics.erb_lint,
-    null_ls.builtins.diagnostics.standardrb,
-    null_ls.builtins.formatting.standardrb,
-    null_ls.builtins.diagnostics.rubocop,
-    null_ls.builtins.formatting.rubocop,
-  },
-}
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<Leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<Leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<Leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<Leader>fh', builtin.help_tags, {})
+
+
+
