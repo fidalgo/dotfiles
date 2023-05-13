@@ -7,33 +7,44 @@ class Packages
   FONT_DIR = File.expand_path("~/.local/share/fonts")
 
   def self.install
-    [BIN_DIR, FONT_DIR].each { |dir| FileUtils.mkdir_p(dir) unless Dir.exist?(dir) }
-
-    new(:uninstall).packages if ARGV.include?("--reset")
-
-    new(:install).packages
+    new(:install).install_packages
   end
 
   def self.uninstall
-    new(:uninstall).packages
+    new(:uninstall).uninstall_packages
   end
 
   def initialize(mode)
     @mode = mode
   end
 
-  def packages
-    rtx
-    packer
-    vim_plug
-    fonts
-    stylua
+  def install_packages
+    setup_directories
+    packages.each(&:install)
+  end
+
+  def uninstall_packages
+    packages.each(&:uninstall)
   end
 
   private
 
+  def setup_directories
+    [BIN_DIR, FONT_DIR].each { |dir| FileUtils.mkdir_p(dir) unless Dir.exist?(dir) }
+  end
+
+  def packages
+    @packages ||= [Rtx.new, Stylua.new, Packer.new, Fonts.new, VimPlug.new]
+  end
+end
+
+class Package
   def install?
     @mode == :install
+  end
+
+  def uninstall
+    FileUtils.rm_f(path)
   end
 
   def download_file(url, destination)
@@ -59,74 +70,105 @@ class Packages
     end
   end
 
-  def rtx
-    path = File.join(BIN_DIR, "rtx")
-    if install?
-      return if File.exist?(path)
+  private
 
-      puts "Installing rtx"
-      download_file("https://rtx.pub/rtx-latest-linux-x64", path)
-      FileUtils.chmod("u+x", path)
-    else
-      FileUtils.rm_f(path)
-    end
+  def path
+    raise NotImplementedError
+  end
+end
+
+class Rtx < Package
+  def install
+    return if File.exist?(path)
+
+    puts "Installing rtx"
+    download_file("https://rtx.pub/rtx-latest-linux-x64", path)
+    FileUtils.chmod("u+x", path)
   end
 
-  def stylua
-    path = File.join(BIN_DIR, "stylua")
-    if install?
-      return if File.exist?(path)
+  private
 
-      puts "Installing stylua"
-      url = "https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip"
-      download_and_unzip(url, BIN_DIR)
-      FileUtils.chmod("u+x", path)
-    else
-      FileUtils.rm_f(path)
-    end
+  def path
+    File.join(Packages::BIN_DIR, "rtx")
+  end
+end
+
+class Stylua < Package
+  def install
+    return if File.exist?(path)
+
+    puts "Installing stylua"
+    url = "https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip"
+    download_and_unzip(url, path)
+    FileUtils.chmod("u+x", path)
   end
 
-  def packer
-    path = "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
-    if install?
-      return if Dir.exist?(path)
+  private
 
-      puts "Installing packer"
-      FileUtils.mkdir_p(path)
-      `git clone --depth 1 https://github.com/wbthomason/packer.nvim #{path}`
-    else
-      FileUtils.rm_rf(path)
-    end
+  def path
+    File.join(Packages::BIN_DIR, "stylua")
+  end
+end
+
+class Packer < Package
+  def install
+    return if Dir.exist?(path)
+
+    puts "Installing packer"
+    FileUtils.mkdir_p(path) unless Dir.exist?(path)
+    `git clone --depth 1 https://github.com/wbthomason/packer.nvim #{path}`
   end
 
-  def fonts
-    urls = [
-      "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf"
-    ]
+  private
 
+  def path
+    File.expand_path("~/.local/share/nvim/site/pack/packer/start/packer.nvim")
+  end
+end
+
+class VimPlug < Package
+  def install
+    puts "Installing vim-plug"
+    FileUtils.mkdir_p(path) unless Dir.exist?(path)
+    download_file("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim", "#{path}/plug.vim")
+  end
+
+  private
+
+  def path
+    File.expand_path("~/.vim/autoload")
+  end
+end
+
+class Fonts < Package
+  def install
     urls.each do |url|
       name = File.basename(url)
-      path = File.join(FONT_DIR, name)
-      if install?
-        next if File.exist?(path)
+      font_path = File.join(path, name)
+      next if File.exist?(font_path)
 
-        puts "Installing font #{name}"
-        download_file(url, path)
-      else
-        FileUtils.rm_f(path)
-      end
+      puts "Installing font #{name}"
+      download_file(url, font_path)
     end
   end
 
-  def vim_plug
-    path = File.expand_path("~/.vim/autoload")
-
-    if install?
-      puts "Installing vim-plug"
-      FileUtils.mkdir_p(path)
-      download_file("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim", "#{path}/plug.vim")
-    else
-      FileUtils.rm_f(path)
+  def uninstall
+    urls.each do |url|
+      name = File.basename(url)
+      font_path = File.join(path, name)
+      FileUtils.rm_f(font_path)
     end
+  end
+
+  private
+
+  def urls
+    [
+      "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf"
+    ]
+  end
+
+  def path
+    Packages::FONT_DIR
   end
 end
