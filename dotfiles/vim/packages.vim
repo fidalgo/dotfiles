@@ -5,7 +5,7 @@
 " This file contains the list of plugins installed
 call plug#begin('~/.vim/plugged')
 " ########################################
-" Vim visual improvments
+" Vim visual improvements
 " ########################################
 Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline' " Airline status bar
@@ -19,7 +19,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'  " Add git status to NERDTree
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder for vim
 Plug 'junegunn/fzf.vim'
 Plug 'kopischke/vim-fetch' " Open a file at line number file:23
-Plug 'Yggdroot/indentLine' " Show vertical lines on identation
+Plug 'Yggdroot/indentLine' " Show vertical lines on indentation
 
 " ########################################
 " Language & Frameworks support
