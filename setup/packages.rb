@@ -164,7 +164,8 @@ class Fonts < Package
 
   def urls
     [
-      "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf"
+      "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf",
+      "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Noto/Sans-Mono/NotoSansMNerdFont-Regular.ttf"
     ]
   end
 
