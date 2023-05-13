@@ -35,10 +35,14 @@ vim.o.wrap = false
 vim.o.linebreak = true
 
 -- Folds
-vim.o.foldmethod = "indent"    -- fold based on indent
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.o.foldmethod = "indent"    -- fold based on indent
+
 vim.o.foldnestmax = 3          -- deepest fold is 3 levels
 vim.o.foldenable = false       -- don't fold by default
 vim.o.foldlevel = 1
+
 
 -- Completion
 vim.o.wildmode = "list:longest"
