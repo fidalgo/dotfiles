@@ -1,5 +1,8 @@
 -- plugin configurations
+
+-- Neotree keymaps
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]]) -- we're not migrating from v1.x version
+vim.api.nvim_set_keymap('n', '<Leader>t', ':Neotree toggle<CR>', { noremap = true, silent = true })
 
 require('lualine').setup()
 --require'lspconfig'.ruby_ls.setup{}
@@ -53,37 +56,80 @@ require'nvim-treesitter.configs'.setup {
   indent = { enable = true } 
 }
 
-  -- Set up nvim-cmp.
-  local cmp = require'cmp'
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-    }, {
-      { name = 'buffer' },
-    })
+-- Set up nvim-cmp.
+local cmp = require'cmp'
+cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+  }, {
+    { name = 'buffer' },
   })
-  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
+})
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Neotree
+require("neo-tree").setup({
+  close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+  popup_border_style = "rounded",
+  enable_git_status = true,
+  -- Fix for Nerd Fonts v3
+  default_component_configs = {
+    icon = {
+      folder_empty = "󰜌",
+      folder_empty_open = "󰜌",
+    },
+    git_status = {
+      symbols = {
+        renamed   = "󰁕",
+        unstaged  = "󰄱",
+      },
+    },
+  },
+  document_symbols = {
+    kinds = {
+      File = { icon = "󰈙", hl = "Tag" },
+      Namespace = { icon = "󰌗", hl = "Include" },
+      Package = { icon = "󰏖", hl = "Label" },
+      Class = { icon = "󰌗", hl = "Include" },
+      Property = { icon = "󰆧", hl = "@property" },
+      Enum = { icon = "󰒻", hl = "@number" },
+      Function = { icon = "󰊕", hl = "Function" },
+      String = { icon = "󰀬", hl = "String" },
+      Number = { icon = "󰎠", hl = "Number" },
+      Array = { icon = "󰅪", hl = "Type" },
+      Object = { icon = "󰅩", hl = "Type" },
+      Key = { icon = "󰌋", hl = "" },
+      Struct = { icon = "󰌗", hl = "Type" },
+      Operator = { icon = "󰆕", hl = "Operator" },
+      TypeParameter = { icon = "󰊄", hl = "Type" },
+      StaticMethod = { icon = '󰠄 ', hl = 'Function' },
     }
-  })
+  }
+  -- Enf of fix for Nerd Fonts v3
+
+})
+
