@@ -16,5 +16,7 @@ git clone git@github.com:fidalgo/dotfiles.git
 and then run the installer (change it if you need)
 
 ```sh
-./install.sh
+ruby setup.rb --install
 ```
+
+This has been tested with Ruby 3.X, but it uses common API so it should work with some previous versions as well.
