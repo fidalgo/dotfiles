@@ -3,7 +3,7 @@
   name = Paulo Fidalgo
   signingkey = 268A6E53B27F8F9F
 [core]
-  editor = vim
+  editor = nvim
   attributesfile = ~/.gitattributes
 [diff]
   tool = meld

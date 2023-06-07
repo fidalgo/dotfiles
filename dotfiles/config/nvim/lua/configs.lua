@@ -22,11 +22,30 @@ null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.erb_lint,
+    null_ls.builtins.diagnostics.rubocop,
     null_ls.builtins.diagnostics.standardrb,
-    null_ls.builtins.formatting.prettier,
-    null_ls.builtins.formatting.standardrb,
-    null_ls.builtins.formatting.erb_lint,
     null_ls.builtins.formatting.tidy,
+    null_ls.builtins.formatting.htmlbeautifier,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.rubocop,
+    null_ls.builtins.formatting.standardrb
+
+    -- null_ls.builtins.diagnostics.rubocop.with({
+    --   command = "bundle",
+    --   args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
+    -- }),
+    -- null_ls.builtins.diagnostics.standardrb.with({
+    --   command = "bundle",
+    --   args = vim.list_extend({ "exec", "standardrb" }, null_ls.builtins.diagnostics.standardrb._opts.args),
+    -- }),
+    -- null_ls.builtins.formatting.rubocop.with({
+    --   command = "bundle",
+    --   args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
+    -- }),
+    -- null_ls.builtins.formatting.standardrb.with({
+    --   command = "bundle",
+    --   args = vim.list_extend({ "exec", "standardrb" }, null_ls.builtins.formatting.standardrb._opts.args),
+    -- }),
   },
   -- format on save
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
@@ -53,7 +72,7 @@ vim.keymap.set('n', '<Leader>fh', builtin.help_tags, {})
 -- treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"ruby", "yaml", "javascript", "lua"},
-  indent = { enable = true } 
+  indent = { enable = true }
 }
 
 -- Set up nvim-cmp.
@@ -96,6 +115,7 @@ require("neo-tree").setup({
   close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
   popup_border_style = "rounded",
   enable_git_status = true,
+  follow_current_file = true,
   -- Fix for Nerd Fonts v3
   default_component_configs = {
     icon = {
@@ -129,7 +149,13 @@ require("neo-tree").setup({
       StaticMethod = { icon = '󰠄 ', hl = 'Function' },
     }
   }
-  -- Enf of fix for Nerd Fonts v3
-
 })
+-- Enf of fix for Nerd Fonts v3
 
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+
+local lspconfig = require('lspconfig')
+lspconfig.ruby_ls.setup{}
