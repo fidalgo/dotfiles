@@ -1,2 +1,3 @@
-export EDITOR=vim
+alias vim='nvim'
+export EDITOR=nvim
 
