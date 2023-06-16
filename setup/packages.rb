@@ -34,7 +34,7 @@ class Packages
   end
 
   def packages
-    @packages ||= [Rtx.new, Stylua.new, Packer.new, Fonts.new, VimPlug.new]
+    @packages ||= [Hivemind.new, Rtx.new, Stylua.new, Packer.new, Fonts.new, VimPlug.new]
   end
 end
 
@@ -67,6 +67,14 @@ class Package
     Tempfile.create do |temp_file|
       system("curl -s -L -o #{temp_file.path} '#{url}'")
       system("unzip -o #{temp_file.path} -d #{destination}")
+    end
+  end
+
+  def download_and_gunzip(url, destination)
+    Tempfile.create do |temp_file|
+
+      system("curl -s -L -o #{temp_file.path} '#{url}'")
+      system("gzip -dc #{temp_file.path} > #{destination}")
     end
   end
 
@@ -107,6 +115,23 @@ class Stylua < Package
 
   def path
     File.join(Packages::BIN_DIR, "stylua")
+  end
+end
+
+class Hivemind < Package
+  def install
+    return if File.exist?(path)
+
+    puts "Installing Hivemind"
+    url = "https://github.com/DarthSim/hivemind/releases/latest/download/hivemind-v1.1.0-linux-amd64.gz"
+    download_and_gunzip(url, path)
+    FileUtils.chmod("u+x", path)
+  end
+
+  private
+
+  def path
+    File.join(Packages::BIN_DIR, "hivemind")
   end
 end
 
