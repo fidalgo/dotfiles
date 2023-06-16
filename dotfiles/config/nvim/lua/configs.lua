@@ -100,8 +100,8 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'vsnip' }, -- For vsnip users.
   }, {
-    { name = 'buffer' },
-  })
+      { name = 'buffer' },
+    })
 })
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
@@ -117,6 +117,9 @@ require("neo-tree").setup({
   popup_border_style = "rounded",
   enable_git_status = true,
   follow_current_file = true,
+  filesystem = {
+    follow_current_file = true,
+  },
   -- Fix for Nerd Fonts v3
   default_component_configs = {
     icon = {
