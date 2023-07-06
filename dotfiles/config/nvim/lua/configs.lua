@@ -2,10 +2,10 @@
 
 -- Neotree keymaps
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]]) -- we're not migrating from v1.x version
+-- Neotree toggle
 vim.api.nvim_set_keymap('n', '<Leader>t', ':Neotree toggle<CR>', { noremap = true, silent = true })
 
 require('lualine').setup()
---require'lspconfig'.ruby_ls.setup{}
 
 local success, solarized = pcall(require, 'solarized')
 vim.o.background = 'dark'
@@ -23,12 +23,12 @@ null_ls.setup({
     null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.erb_lint,
     null_ls.builtins.diagnostics.rubocop,
-    null_ls.builtins.diagnostics.standardrb,
+--    null_ls.builtins.diagnostics.standardrb,
     null_ls.builtins.formatting.tidy,
     null_ls.builtins.formatting.htmlbeautifier,
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.rubocop,
-    null_ls.builtins.formatting.standardrb
+--    null_ls.builtins.formatting.standardrb
 
     -- null_ls.builtins.diagnostics.rubocop.with({
     --   command = "bundle",
@@ -94,7 +94,7 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -106,10 +106,11 @@ cmp.setup({
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
+  sources = {    { name = 'buffer' }  }
 })
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 -- Neotree
 require("neo-tree").setup({
@@ -156,10 +157,6 @@ require("neo-tree").setup({
 })
 -- Enf of fix for Nerd Fonts v3
 
--- If you want insert `(` after select function or method item
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
-cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 local lspconfig = require('lspconfig')
 lspconfig.ruby_ls.setup{}
