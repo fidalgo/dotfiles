@@ -190,7 +190,7 @@ class Fonts < Package
 
   def urls
     [
-      'https://github.com/intel/intel-one-mono/releases/latest/download/otf.zip'
+      'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf'
     ]
   end
 
