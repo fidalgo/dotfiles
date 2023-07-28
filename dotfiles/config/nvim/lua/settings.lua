@@ -1,3 +1,5 @@
+vim.opt.guifont = "Inconsolata Nerd Font Mono:h14"
+
 vim.o.number = true -- Line numbers are good
 -- vim.o.backspace = indent,eol,start  -- Allow backspace in insert mode
 vim.o.history = 1000 -- Store lots of :cmdline history

@@ -1,7 +1,7 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim") -- Packer can manage itself
-
+	use("tenxsoydev/size-matters.nvim")
 	use("maxmx03/solarized.nvim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -13,7 +13,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
+		branch = "v3.x",
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",

@@ -1,10 +1,4 @@
 -- plugin configurations
-
--- Neotree keymaps
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]]) -- we're not migrating from v1.x version
--- Neotree toggle
-vim.api.nvim_set_keymap("n", "<Leader>t", ":Neotree toggle<CR>", { noremap = true, silent = true })
-
 require("lualine").setup()
 
 local success, solarized = pcall(require, "solarized")
@@ -95,58 +89,17 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- Neotree
+vim.api.nvim_set_keymap("n", "<Leader>t", ":Neotree toggle<CR>", { noremap = true, silent = true }) -- toggle
 require("neo-tree").setup({
-	close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
 	popup_border_style = "rounded",
 	enable_git_status = true,
+	use_libuv_file_watcher = false,
 	filesystem = {
-		follow_current_file = true,
-		use_libuv_file_watcher = false,
+		follow_current_file = { enabled = true },
 	},
-})
-
--- Neotree fix for NerdFont
-require("neo-tree").setup({
-	default_component_configs = {
-		icon = {
-			folder_empty = "󰜌",
-			folder_empty_open = "󰜌",
-		},
-		git_status = {
-			symbols = {
-				renamed = "󰁕",
-				unstaged = "󰄱",
-			},
-		},
+	buffers = {
+		follow_current_file = { enabled = true },
 	},
-	document_symbols = {
-		kinds = {
-			File = { icon = "󰈙", hl = "Tag" },
-			Namespace = { icon = "󰌗", hl = "Include" },
-			Package = { icon = "󰏖", hl = "Label" },
-			Class = { icon = "󰌗", hl = "Include" },
-			Property = { icon = "󰆧", hl = "@property" },
-			Enum = { icon = "󰒻", hl = "@number" },
-			Function = { icon = "󰊕", hl = "Function" },
-			String = { icon = "󰀬", hl = "String" },
-			Number = { icon = "󰎠", hl = "Number" },
-			Array = { icon = "󰅪", hl = "Type" },
-			Object = { icon = "󰅩", hl = "Type" },
-			Key = { icon = "󰌋", hl = "" },
-			Struct = { icon = "󰌗", hl = "Type" },
-			Operator = { icon = "󰆕", hl = "Operator" },
-			TypeParameter = { icon = "󰊄", hl = "Type" },
-			StaticMethod = { icon = "󰠄 ", hl = "Function" },
-		},
-	},
-	-- Add this section only if you've configured source selector.
-	source_selector = {
-		sources = {
-			{ source = "filesystem", display_name = " 󰉓 Files " },
-			{ source = "git_status", display_name = " 󰊢 Git " },
-		},
-	},
-	-- Other options ...
 })
 
 local lspconfig = require("lspconfig")
