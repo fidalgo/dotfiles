@@ -11,32 +11,25 @@ solarized:setup({
 })
 vim.cmd("colorscheme solarized")
 
+local lspconfig = require("lspconfig")
+lspconfig.ruby_ls.setup({})
+
+require("lsp-format").setup({})
 local null_ls = require("null-ls")
 null_ls.setup({
+	debug = true,
 	sources = {
 		null_ls.builtins.diagnostics.codespell,
 		null_ls.builtins.diagnostics.erb_lint,
 		null_ls.builtins.diagnostics.rubocop,
-		--		null_ls.builtins.formatting.tidy,
+		-- null_ls.builtins.formatting.tidy,
 		null_ls.builtins.formatting.htmlbeautifier,
+		--null_ls.builtins.formatting.erb_lint,
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.rubocop,
 		null_ls.builtins.formatting.stylua,
 	},
-	-- format on save
-	-- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr })
-				end,
-			})
-		end
-	end,
+	on_attach = require("lsp-format").on_attach,
 })
 
 local builtin = require("telescope.builtin")
@@ -101,6 +94,3 @@ require("neo-tree").setup({
 		follow_current_file = { enabled = true },
 	},
 })
-
-local lspconfig = require("lspconfig")
-lspconfig.ruby_ls.setup({})
