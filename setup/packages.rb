@@ -34,7 +34,7 @@ class Packages
   end
 
   def packages
-    @packages ||= [Hivemind.new, Rtx.new, Stylua.new, Packer.new, Fonts.new, VimPlug.new]
+    @packages ||= [Hivemind.new, Rtx.new, Stylua.new, Packer.new, Fonts.new]
   end
 end
 
@@ -49,7 +49,6 @@ class Package
 
   def download_file(url, destination)
     uri = URI.parse(url)
-
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new(uri.request_uri)
 
@@ -149,20 +148,6 @@ class Packer < Package
 
   def path
     File.expand_path('~/.local/share/nvim/site/pack/packer/start/packer.nvim')
-  end
-end
-
-class VimPlug < Package
-  def install
-    puts 'Installing vim-plug'
-    FileUtils.mkdir_p(path) unless Dir.exist?(path)
-    download_file('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', "#{path}/plug.vim")
-  end
-
-  private
-
-  def path
-    File.expand_path('~/.vim/autoload')
   end
 end
 

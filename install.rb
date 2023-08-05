@@ -4,7 +4,6 @@ require 'open-uri'
 require 'time'
 
 require_relative 'setup/backup'
-require_relative 'setup/vim'
 require_relative 'setup/bash'
 require_relative 'setup/config'
 require_relative 'setup/packages'
@@ -21,11 +20,17 @@ def print_help
   HELP
 end
 
+def install
+  Config.copy
+  Packages.install
+  Bash.configure
+end
+
 def main
   case ARGV[0]
   when '--reset'
     Packages.uninstall
-    BackupManager.backup
+    install
   when '--backup'
     BackupManager.backup
   when '--restore'
@@ -37,10 +42,7 @@ def main
   when '--help'
     print_help
   else
-    Config.copy
-    Packages.install
-    Bash.configure
-    Vim.install
+    install
   end
 end
 
