@@ -1,0 +1,42 @@
+if defined? Rails
+  banner_color = case Rails.env
+  when "production"
+    "\e[41;97;1m" # Red background for production
+  when "test"
+    "\e[43;97;1m" # Yellow background for test
+  else
+    "\e[42;97;1m" # Green background for other environments (e.g., development)
+  end
+  banner = "#{banner_color} #{Rails.env} \e[0m "
+
+  # Build a custom prompt
+  IRB.conf[:PROMPT][:CUSTOM] = IRB.conf[:PROMPT][:DEFAULT].merge(
+    PROMPT_I: banner + IRB.conf[:PROMPT][:DEFAULT][:PROMPT_I]
+  )
+
+  # Use custom prompt by default
+  IRB.conf[:PROMPT_MODE] = :CUSTOM
+end
+# Configuration for Reline::Face with Solarized Dark theme colors
+if defined? Reline::Face
+  # Defining a set of colors from the Solarized Dark theme for use
+  base03 = "#002b36" # Background
+  base0 = "#839496" # Primary content
+  yellow = "#b58900"
+  orange = "#cb4b16"
+  red = "#dc322f"
+  magenta = "#d33682"
+  violet = "#6c71c4"
+  blue = "#268bd2"
+  cyan = "#2aa198"
+  green = "#859900"
+
+  Reline::Face.config(:completion_dialog) do |conf|
+    conf.define(:default, foreground: base0, background: base03)
+    conf.define(:enhanced, foreground: blue, background: base03)
+    conf.define(:scrollbar, foreground: green, background: base03)
+    # Additional customization can go here, using the defined colors
+  end
+else
+  IRB.conf[:USE_AUTOCOMPLETE] = false
+end
