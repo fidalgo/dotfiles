@@ -1,5 +1,9 @@
 -- plugin configurations
-require("lualine").setup()
+require("lualine").setup({
+	sections = {
+		lualine_c = { { "filename", path = 1, file_status = true } },
+	},
+})
 
 local success, solarized = pcall(require, "solarized")
 vim.o.background = "dark"
@@ -11,26 +15,62 @@ solarized:setup({
 })
 vim.cmd("colorscheme solarized")
 
-local lspconfig = require("lspconfig")
-lspconfig.ruby_ls.setup({})
+local function detect_gems()
+	local gemfile_path = vim.fn.getcwd() .. "/Gemfile"
+	local gems = {}
+	if vim.fn.filereadable(gemfile_path) == 1 then
+		local gemfile_content = table.concat(vim.fn.readfile(gemfile_path), "\n")
+		gems.standard = gemfile_content:match("gem [\"']standard[\"'][, ]") ~= nil
+		gems.rubocop = gemfile_content:match("gem [\"']rubocop[\"'][, ]") ~= nil
+	end
+	return gems
+end
+local gems = detect_gems()
 
-require("lsp-format").setup({})
 local null_ls = require("null-ls")
+local builtins = {
+	null_ls.builtins.diagnostics.codespell,
+	null_ls.builtins.diagnostics.erb_lint,
+	-- null_ls.builtins.formatting.tidy,
+	null_ls.builtins.formatting.erb_lint,
+	null_ls.builtins.formatting.erb_format,
+	null_ls.builtins.formatting.prettier,
+	null_ls.builtins.formatting.stylua,
+}
 null_ls.setup({
 	debug = true,
-	sources = {
-		null_ls.builtins.diagnostics.codespell,
-		null_ls.builtins.diagnostics.erb_lint,
-		null_ls.builtins.diagnostics.rubocop,
-		-- null_ls.builtins.formatting.tidy,
-		null_ls.builtins.formatting.htmlbeautifier,
-		--null_ls.builtins.formatting.erb_lint,
-		null_ls.builtins.formatting.prettier,
-		null_ls.builtins.formatting.rubocop,
-		null_ls.builtins.formatting.stylua,
-	},
+	sources = builtins,
 	on_attach = require("lsp-format").on_attach,
 })
+
+if gems.rubocop then
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "ruby",
+		callback = function()
+			vim.lsp.start({
+				name = "rubocop",
+				cmd = { "bundle", "exec", "rubocop", "--lsp" },
+			})
+		end,
+	})
+	vim.notify_once([[Using Rubocop for Ruby LSP]], vim.log.levels.INFO)
+else
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "ruby",
+		callback = function()
+			vim.lsp.start({
+				name = "standardrb",
+				cmd = { "bundle", "exec", "standardrb", "--lsp" },
+			})
+		end,
+	})
+	vim.notify_once([[Using Standard for Ruby LSP]], vim.log.levels.INFO)
+end
+
+require("lsp-format").setup({})
+local lspconfig = require("lspconfig")
+lspconfig.ruby_ls.setup({ on_attach = require("lsp-format").on_attach })
+vim.opt.signcolumn = "yes"
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
@@ -41,7 +81,7 @@ vim.keymap.set("n", "<Leader>fs", builtin.grep_string, {})
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "ruby", "yaml", "javascript", "lua" },
+	ensure_installed = { "ruby", "yaml", "javascript", "json", "markdown", "lua" },
 	indent = { enable = true },
 })
 

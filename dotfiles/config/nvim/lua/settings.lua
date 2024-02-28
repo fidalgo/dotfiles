@@ -7,13 +7,23 @@ vim.o.showcmd = true -- Show incomplete cmds down the bottom
 vim.o.showmode = true -- Show current mode down the bottom
 -- vim.o.gcr = a:blinkon0              -- Disable cursor blink
 vim.o.visualbell = true -- No sounds
-vim.o.autoread = true -- Reload files changed outside vim
--- vim.o.encoding = UTF-8
+
+-- auto-reload files when modified externally
+-- https://unix.stackexchange.com/a/383044
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
+vim.o.encoding = "UTF-8"
 vim.o.colorcolumn = 120
 -- This makes vim act like all other editors, buffers can
 -- exist in the background without being in a window.
 -- http://items.sjbach.com/319/configuring-vim-right
 vim.o.hidden = true
+
+-- Set clipboard integration
+vim.o.clipboard = "unnamedplus"
 
 -- Enable syntax highlighting
 vim.cmd([[syntax on]])
