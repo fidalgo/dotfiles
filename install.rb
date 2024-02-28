@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
-require 'fileutils'
-require 'open-uri'
-require 'time'
+require "fileutils"
+require "open-uri"
+require "time"
 
-require_relative 'setup/backup'
-require_relative 'setup/bash'
-require_relative 'setup/config'
-require_relative 'setup/packages'
+require_relative "setup/backup"
+require_relative "setup/bash"
+require_relative "setup/config"
+require_relative "setup/packages"
 
 def print_help
   puts <<~HELP
@@ -28,18 +28,18 @@ end
 
 def main
   case ARGV[0]
-  when '--reset'
+  when "--reset"
     Packages.uninstall
     install
-  when '--backup'
+  when "--backup"
     BackupManager.backup
-  when '--restore'
+  when "--restore"
     if ARGV[1] && File.exist?(ARGV[1])
       BackupManager.restore(ARGV[1])
     else
-      puts 'Please provide a valid path to the encrypted backup file for restoration.'
+      puts "Please provide a valid path to the encrypted backup file for restoration."
     end
-  when '--help'
+  when "--help"
     print_help
   else
     install

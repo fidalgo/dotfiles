@@ -1,23 +1,23 @@
 #!/usr/bin/env ruby
 
-require 'fileutils'
+require "fileutils"
 
 class BackupManager
   DIRECTORIES_TO_BACKUP = [
-    '/etc/NetworkManager',
-    '/etc/ssl/certs',
-    '~/Documents',
-    '~/.ssh',
-    '~/.gnupg',
-    '~/.config/Signal',
-    '~/.bundle',
-    '~/.npmrc',
-    '~/.cert'
+    "/etc/NetworkManager",
+    "/etc/ssl/certs",
+    "~/Documents",
+    "~/.ssh",
+    "~/.gnupg",
+    "~/.config/Signal",
+    "~/.bundle",
+    "~/.npmrc",
+    "~/.cert"
   ].freeze
 
   BACKUP_DIR = Dir.home
-  BACKUP_FILENAME_FORMAT = 'backup_%<timestamp>s.tar.gz'
-  ENCRYPTED_EXT = '.gpg'
+  BACKUP_FILENAME_FORMAT = "backup_%<timestamp>s.tar.gz"
+  ENCRYPTED_EXT = ".gpg"
 
   class << self
     def backup
@@ -30,16 +30,16 @@ class BackupManager
 
     def restore(encrypted_backup_path)
       unless encrypted_backup_path
-        puts 'Please provide the path to the encrypted backup file.'
+        puts "Please provide the path to the encrypted backup file."
         return
       end
 
       unless File.exist?(encrypted_backup_path)
-        puts 'The provided file does not exist.'
+        puts "The provided file does not exist."
         return
       end
 
-      decrypted_backup_path = encrypted_backup_path.gsub(ENCRYPTED_EXT, '')
+      decrypted_backup_path = encrypted_backup_path.gsub(ENCRYPTED_EXT, "")
       decrypt_backup(encrypted_backup_path, decrypted_backup_path)
       extract_backup(decrypted_backup_path)
       FileUtils.rm(decrypted_backup_path)
@@ -49,12 +49,12 @@ class BackupManager
     private
 
     def generate_backup_path
-      File.join(BACKUP_DIR, format(BACKUP_FILENAME_FORMAT, timestamp: Time.now.strftime('%Y%m%d_%H%M%S')))
+      File.join(BACKUP_DIR, format(BACKUP_FILENAME_FORMAT, timestamp: Time.now.strftime("%Y%m%d_%H%M%S")))
     end
 
     def create_backup(backup_path)
-      system("sudo tar -czpf #{backup_path} -C #{BACKUP_DIR} #{DIRECTORIES_TO_BACKUP.join(' ')}")
-      system("sudo chown #{ENV['USER']}:#{ENV['USER']} #{backup_path}")
+      system("sudo tar -czpf #{backup_path} -C #{BACKUP_DIR} #{DIRECTORIES_TO_BACKUP.join(" ")}")
+      system("sudo chown #{ENV["USER"]}:#{ENV["USER"]} #{backup_path}")
     end
 
     def encrypt_backup(backup_path)

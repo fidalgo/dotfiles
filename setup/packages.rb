@@ -1,10 +1,10 @@
-require 'net/http'
-require 'open-uri'
-require 'tempfile'
+require "net/http"
+require "open-uri"
+require "tempfile"
 
 class Packages
-  BIN_DIR = File.expand_path('~/bin')
-  FONT_DIR = File.expand_path('~/.local/share/fonts')
+  BIN_DIR = File.expand_path("~/bin")
+  FONT_DIR = File.expand_path("~/.local/share/fonts")
 
   def self.install
     new(:install).install_packages
@@ -49,11 +49,11 @@ class Package
 
   def download_file(url, destination)
     uri = URI.parse(url)
-    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
       request = Net::HTTP::Get.new(uri.request_uri)
 
       http.request(request) do |response|
-        File.open(destination, 'wb') do |file|
+        File.open(destination, "wb") do |file|
           response.read_body do |chunk|
             file.write(chunk)
           end
@@ -88,15 +88,15 @@ class Rtx < Package
   def install
     return if File.exist?(path)
 
-    puts 'Installing rtx'
-    download_file('https://rtx.pub/rtx-latest-linux-x64', path)
-    FileUtils.chmod('u+x', path)
+    puts "Installing rtx"
+    download_file("https://rtx.pub/rtx-latest-linux-x64", path)
+    FileUtils.chmod("u+x", path)
   end
 
   private
 
   def path
-    File.join(Packages::BIN_DIR, 'rtx')
+    File.join(Packages::BIN_DIR, "rtx")
   end
 end
 
@@ -104,17 +104,17 @@ class Stylua < Package
   def install
     return if File.exist?(path)
 
-    puts 'Installing stylua'
-    url = 'https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip'
+    puts "Installing stylua"
+    url = "https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip"
     puts path
     download_and_unzip(url, path)
-    FileUtils.chmod('u+x', path)
+    FileUtils.chmod("u+x", path)
   end
 
   private
 
   def path
-    File.join(Packages::BIN_DIR, 'stylua')
+    File.join(Packages::BIN_DIR, "stylua")
   end
 end
 
@@ -122,16 +122,16 @@ class Hivemind < Package
   def install
     return if File.exist?(path)
 
-    puts 'Installing Hivemind'
-    url = 'https://github.com/DarthSim/hivemind/releases/latest/download/hivemind-v1.1.0-linux-amd64.gz'
+    puts "Installing Hivemind"
+    url = "https://github.com/DarthSim/hivemind/releases/latest/download/hivemind-v1.1.0-linux-amd64.gz"
     download_and_gunzip(url, path)
-    FileUtils.chmod('u+x', path)
+    FileUtils.chmod("u+x", path)
   end
 
   private
 
   def path
-    File.join(Packages::BIN_DIR, 'hivemind')
+    File.join(Packages::BIN_DIR, "hivemind")
   end
 end
 
@@ -139,7 +139,7 @@ class Packer < Package
   def install
     return if Dir.exist?(path)
 
-    puts 'Installing packer'
+    puts "Installing packer"
     FileUtils.mkdir_p(path) unless Dir.exist?(path)
     `git clone --depth 1 https://github.com/wbthomason/packer.nvim #{path}`
   end
@@ -147,7 +147,7 @@ class Packer < Package
   private
 
   def path
-    File.expand_path('~/.local/share/nvim/site/pack/packer/start/packer.nvim')
+    File.expand_path("~/.local/share/nvim/site/pack/packer/start/packer.nvim")
   end
 end
 
@@ -175,7 +175,7 @@ class Fonts < Package
 
   def urls
     [
-      'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf'
+      "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf"
     ]
   end
 
