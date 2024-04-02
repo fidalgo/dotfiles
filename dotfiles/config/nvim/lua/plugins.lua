@@ -18,7 +18,6 @@ return require("packer").startup(function(use)
 		branch = "v3.x",
 		requires = {
 			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
 	})
@@ -31,12 +30,8 @@ return require("packer").startup(function(use)
 	-- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use({ "nvimtools/none-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
 	-- Smart and Powerful commenting plugin for neovim
-	use({
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-	})
+	use("tpope/vim-commentary")
+	use("JoosepAlviste/nvim-ts-context-commentstring")
 	-- nvim-cmp: completion engine plugin
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/cmp-nvim-lsp")
@@ -46,6 +41,8 @@ return require("packer").startup(function(use)
 	use("hrsh7th/nvim-cmp")
 
 	-- vsnip snippets
+	use("hrsh7th/vim-vsnip")
+	use("hrsh7th/vim-vsnip-integ")
 	use("hrsh7th/cmp-vsnip")
 	use("hrsh7th/vim-vsnip")
 

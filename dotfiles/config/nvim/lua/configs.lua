@@ -20,8 +20,8 @@ local function detect_gems()
 	local gems = {}
 	if vim.fn.filereadable(gemfile_path) == 1 then
 		local gemfile_content = table.concat(vim.fn.readfile(gemfile_path), "\n")
-		gems.standard = gemfile_content:match("gem [\"']standard[\"'][, ]") ~= nil
-		gems.rubocop = gemfile_content:match("gem [\"']rubocop[\"'][, ]") ~= nil
+		gems.standard = gemfile_content:match("gem [\"']standard%-") ~= nil
+		gems.rubocop = gemfile_content:match("gem [\"']rubocop%-") ~= nil
 	end
 	return gems
 end
@@ -31,9 +31,10 @@ local null_ls = require("null-ls")
 local builtins = {
 	null_ls.builtins.diagnostics.codespell,
 	null_ls.builtins.diagnostics.erb_lint,
-	-- null_ls.builtins.formatting.tidy,
-	null_ls.builtins.formatting.erb_lint,
-	null_ls.builtins.formatting.erb_format,
+	null_ls.builtins.diagnostics.tidy.with({
+		extra_filetypes = { "eruby" },
+		extra_args = { "--show-warnings false", "--show-body-only true" },
+	}),
 	null_ls.builtins.formatting.prettier,
 	null_ls.builtins.formatting.stylua,
 }
