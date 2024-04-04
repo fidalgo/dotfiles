@@ -4,6 +4,7 @@ return require("packer").startup(function(use)
 	use("tenxsoydev/size-matters.nvim")
 	use("maxmx03/solarized.nvim")
 	use("nvim-lualine/lualine.nvim")
+	use("wsdjeg/vim-fetch") -- open file at line and column
 	use("lukas-reineke/lsp-format.nvim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
