@@ -75,5 +75,3 @@ vim.o.wildignore = "*.o,*.obj,*~,*.png,*.jpg,*.gif"
 vim.o.wildignore = vim.o.wildignore .. ",*nvim/backups*,*sass-cache*,*DS_Store*"
 vim.o.wildignore = vim.o.wildignore .. ",vendor/rails/**,vendor/cache/**,*.gem"
 vim.o.wildignore = vim.o.wildignore .. ",log/**,tmp/**"
-
--- Disable unneeed providers

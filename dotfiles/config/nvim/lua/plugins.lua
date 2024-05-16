@@ -25,9 +25,10 @@ return require("packer").startup(function(use)
 	-- extendable fuzzy finder over lists
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		tag = "0.1.6",
 		requires = { "nvim-lua/plenary.nvim" },
 	})
+	use("nvim-pack/nvim-spectre") -- search panel for neovim
 	-- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use({ "nvimtools/none-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
 	-- Smart and Powerful commenting plugin for neovim
@@ -54,4 +55,5 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use("andymass/vim-matchup")
+	use("tpope/vim-fugitive") -- Git integration
 end)

@@ -34,7 +34,7 @@ class Packages
   end
 
   def packages
-    @packages ||= [Hivemind.new, Rtx.new, Stylua.new, Packer.new, Fonts.new]
+    @packages ||= [Hivemind.new, Mise.new, Stylua.new, Packer.new, Fonts.new]
   end
 end
 
@@ -84,19 +84,19 @@ class Package
   end
 end
 
-class Rtx < Package
+class Mise < Package
   def install
     return if File.exist?(path)
 
-    puts "Installing rtx"
-    download_file("https://rtx.pub/rtx-latest-linux-x64", path)
+    puts "Installing mise"
+    download_file("https://mise.jdx.dev/mise-latest-linux-x64", path)
     FileUtils.chmod("u+x", path)
   end
 
   private
 
   def path
-    File.join(Packages::BIN_DIR, "rtx")
+    File.join(Packages::BIN_DIR, "mise")
   end
 end
 

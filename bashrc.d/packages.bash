@@ -1,10 +1,4 @@
-#if [ -z "$RTX_ENABLED" ]; then
-#  TIMEFORMAT='rtx took %R seconds.'
-#  time {
-  export RTX_ENABLED=1
-  eval "$(rtx activate bash)"
-#}
-#fi
+eval "$(mise activate bash)"
 
 # Node related configs
 ## Global installed programs, like prettier
