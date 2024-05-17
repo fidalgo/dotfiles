@@ -4,9 +4,7 @@ require("lualine").setup({
 		lualine_c = { { "filename", path = 1, file_status = true } },
 	},
 })
-require("solarized").setup({
-	theme = "neo", -- or comment to use solarized default theme.
-})
+require("solarized").setup({})
 vim.o.background = "dark"
 vim.cmd.colorscheme("solarized")
 
@@ -63,9 +61,7 @@ null_ls.setup({
 })
 
 require("lsp-format").setup({})
-local lspconfig = require("lspconfig")
-lspconfig.ruby_ls.setup({ on_attach = require("lsp-format").on_attach })
-vim.opt.signcolumn = "yes"
+require("lspconfig").gopls.setup({ on_attach = require("lsp-format").on_attach })
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})

@@ -1,4 +1,5 @@
 vim.opt.guifont = "Inconsolata Nerd Font Mono:h14"
+--vim.opt.guifont = "Inconsolata\\ Nerd\\ Font\\ Mono:h14"
 
 vim.o.number = true -- Line numbers are good
 -- vim.o.backspace = indent,eol,start  -- Allow backspace in insert mode
@@ -17,6 +18,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
 })
 vim.o.encoding = "UTF-8"
 vim.o.colorcolumn = 120
+vim.opt.signcolumn = "auto" -- only show the column where there's signs to display
 -- This makes vim act like all other editors, buffers can
 -- exist in the background without being in a window.
 -- http://items.sjbach.com/319/configuring-vim-right
