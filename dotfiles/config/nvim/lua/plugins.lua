@@ -29,8 +29,6 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 	use("nvim-pack/nvim-spectre") -- search panel for neovim
-	-- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-	use({ "nvimtools/none-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
 	-- Smart and Powerful commenting plugin for neovim
 	use("tpope/vim-commentary")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
@@ -56,4 +54,5 @@ return require("packer").startup(function(use)
 	})
 	use("andymass/vim-matchup")
 	use("tpope/vim-fugitive") -- Git integration
+	use("stevearc/conform.nvim") -- Lightweight yet powerful formatter plugin for Neovim
 end)
