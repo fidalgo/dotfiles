@@ -2,6 +2,7 @@
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim") -- Packer can manage itself
 	use("tenxsoydev/size-matters.nvim")
+	use("folke/tokyonight.nvim")
 	use("maxmx03/solarized.nvim")
 	use("nvim-lualine/lualine.nvim")
 	use("wsdjeg/vim-fetch") -- open file at line and column
@@ -25,7 +26,7 @@ return require("packer").startup(function(use)
 	-- extendable fuzzy finder over lists
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.6",
+		tag = "0.1.7",
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 	use("nvim-pack/nvim-spectre") -- search panel for neovim
@@ -55,4 +56,5 @@ return require("packer").startup(function(use)
 	use("andymass/vim-matchup")
 	use("tpope/vim-fugitive") -- Git integration
 	use("stevearc/conform.nvim") -- Lightweight yet powerful formatter plugin for Neovim
+	use("f-person/auto-dark-mode.nvim")
 end)

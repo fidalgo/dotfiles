@@ -4,25 +4,36 @@ require("lualine").setup({
 		lualine_c = { { "filename", path = 1, file_status = true } },
 	},
 })
-require("solarized").setup({})
-vim.o.background = "dark"
-vim.cmd.colorscheme("solarized")
+
+require("tokyonight").setup({
+	style = "night",
+})
+
+local auto_dark_mode = require("auto-dark-mode")
+
+auto_dark_mode.setup({
+	update_interval = 1000,
+	set_dark_mode = function()
+		vim.api.nvim_set_option("background", "dark")
+		vim.cmd("colorscheme tokyonight")
+	end,
+	set_light_mode = function()
+		vim.api.nvim_set_option("background", "light")
+		vim.cmd("colorscheme tokyonight")
+	end,
+})
 
 require("conform").setup({
 	formatters = {
-		rubocop = {
-			command = "bundle exec rubocop --lsp",
-		},
-		standardrb = {
-			command = "bundle exec standardrb --lsp",
-		},
+		rubocop = { command = "bundle exec rubocop --lsp" },
+		standardrb = { command = "bundle exec standardrb --lsp" },
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "isort", "black" }, -- Conform will run multiple formatters sequentially
 		javascript = { { "prettierd", "prettier" } }, -- Use a sub-list to run only the first available formatter
 		yaml = { { "prettierd", "prettier" } },
-		--	ruby = { { "standardrb", "rubocop" } }, -- we use the LSP
+		ruby = { { "standardrb", "rubocop" } },
 		eruby = { "htmlbeautifier", "erb-format" },
 		html = { { "prettierd", "prettier" } },
 		json = { { "prettierd", "prettier" } },
