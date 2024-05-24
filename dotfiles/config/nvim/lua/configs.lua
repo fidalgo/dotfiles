@@ -8,60 +8,34 @@ require("solarized").setup({})
 vim.o.background = "dark"
 vim.cmd.colorscheme("solarized")
 
-local function detect_gems()
-	local gemfile_path = vim.fn.getcwd() .. "/Gemfile"
-	local gems = { standard = false, rubocop = false }
-	if vim.fn.filereadable(gemfile_path) == 1 then
-		local gemfile_content = table.concat(vim.fn.readfile(gemfile_path), "\n")
-		gems.standard = gemfile_content:match("gem [\"']standard%-") ~= nil
-		gems.rubocop = gemfile_content:match("gem [\"']rubocop%-") ~= nil
-	end
-	return gems
-end
-local gems = detect_gems()
-local function get_lsp_config()
-	if gems.rubocop then
-		return {
-			name = "rubocop",
-			cmd = { "bundle", "exec", "rubocop", "--lsp" },
-		}
-	else
-		return {
-			name = "standardrb",
-			cmd = { "bundle", "exec", "standardrb", "--lsp" },
-		}
-	end
-end
-
-local lsp_config = get_lsp_config()
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "ruby",
-	callback = function()
-		vim.lsp.start(lsp_config)
-		vim.notify_once(string.format("Using %s for Ruby LSP", lsp_config.name), vim.log.levels.INFO)
-	end,
-})
-
-local null_ls = require("null-ls")
-local builtins = {
-	null_ls.builtins.diagnostics.codespell,
-	null_ls.builtins.diagnostics.erb_lint,
-	null_ls.builtins.diagnostics.tidy.with({
-		extra_filetypes = { "eruby" },
-		extra_args = { "--show-warnings false", "--show-body-only true" },
-	}),
-	null_ls.builtins.formatting.prettier,
-	null_ls.builtins.formatting.stylua,
-}
-null_ls.setup({
-	debug = true,
-	sources = builtins,
-	on_attach = require("lsp-format").on_attach,
+require("conform").setup({
+	formatters = {
+		rubocop = {
+			command = "bundle exec rubocop --lsp",
+		},
+		standardrb = {
+			command = "bundle exec standardrb --lsp",
+		},
+	},
+	formatters_by_ft = {
+		lua = { "stylua" },
+		python = { "isort", "black" }, -- Conform will run multiple formatters sequentially
+		javascript = { { "prettierd", "prettier" } }, -- Use a sub-list to run only the first available formatter
+		yaml = { { "prettierd", "prettier" } },
+		--	ruby = { { "standardrb", "rubocop" } }, -- we use the LSP
+		eruby = { "htmlbeautifier", "erb-format" },
+		html = { { "prettierd", "prettier" } },
+		json = { { "prettierd", "prettier" } },
+		markdown = { { "prettierd", "prettier" } },
+	},
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true,
+	},
 })
 
 require("lsp-format").setup({})
-require("lspconfig").gopls.setup({ on_attach = require("lsp-format").on_attach })
+require("lspconfig").ruby_lsp.setup({ on_attach = require("lsp-format").on_attach })
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
