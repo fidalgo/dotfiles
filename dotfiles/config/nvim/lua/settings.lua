@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
 	pattern = { "*" },
 })
 vim.o.encoding = "UTF-8"
-vim.o.colorcolumn = 120
+vim.o.colorcolumn = "120"
 vim.opt.signcolumn = "yes"
 -- This makes vim act like all other editors, buffers can
 -- exist in the background without being in a window.
