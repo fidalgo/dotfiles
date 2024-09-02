@@ -45,7 +45,6 @@ return require("packer").startup(function(use)
 	use("hrsh7th/vim-vsnip")
 	use("hrsh7th/vim-vsnip-integ")
 	use("hrsh7th/cmp-vsnip")
-	use("hrsh7th/vim-vsnip")
 
 	use({
 		"windwp/nvim-autopairs",
@@ -57,4 +56,5 @@ return require("packer").startup(function(use)
 	use("tpope/vim-fugitive") -- Git integration
 	use("stevearc/conform.nvim") -- Lightweight yet powerful formatter plugin for Neovim
 	use("f-person/auto-dark-mode.nvim")
+	use("pteroctopus/faster.nvim") -- Automatically disable plugins for large files
 end)
