@@ -123,3 +123,4 @@ require("neo-tree").setup({
 		follow_current_file = { enabled = true },
 	},
 })
+require("faster").setup()
