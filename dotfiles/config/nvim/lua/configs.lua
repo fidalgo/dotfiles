@@ -31,17 +31,17 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "isort", "black" }, -- Conform will run multiple formatters sequentially
-		javascript = { { "prettierd", "prettier" } }, -- Use a sub-list to run only the first available formatter
-		yaml = { { "prettierd", "prettier" } },
-		ruby = { { "standardrb", "rubocop" } },
+		javascript = { "prettier" }, -- Use a sub-list to run only the first available formatter
+		yaml = {  "prettier" },
+		ruby = {  "standardrb", "rubocop", stop_after_first = true },
 		eruby = { "htmlbeautifier", "erb-format" },
-		html = { { "prettierd", "prettier" } },
-		json = { { "prettierd", "prettier" } },
-		markdown = { { "prettierd", "prettier" } },
+		html = { "prettier"  },
+		json = { "prettier"  },
+		markdown = { "prettier"  },
 	},
 	format_on_save = {
 		timeout_ms = 500,
-		lsp_fallback = true,
+		lsp_format = "fallback",
 	},
 })
 
