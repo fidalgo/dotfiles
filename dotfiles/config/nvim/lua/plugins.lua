@@ -26,7 +26,7 @@ return require("packer").startup(function(use)
 	-- extendable fuzzy finder over lists
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.7",
+		tag = "0.1.8",
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 	use("nvim-pack/nvim-spectre") -- search panel for neovim
