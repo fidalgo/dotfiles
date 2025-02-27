@@ -3,6 +3,7 @@
 REPO_URL="git@github.com:basecamp/omakub.git"
 LOCAL_PATH="$HOME/.local/share/omakub"
 VERSION=v1.1.4
+CURRENT_DIR=$(pwd)
 
 # Check if the directory exists
 if [ -d "$LOCAL_PATH/.git" ]; then
@@ -28,3 +29,4 @@ else
   echo "Checking out version $VERSION..."
   git checkout "$VERSION"
 fi
+cd "$CURRENT_DIR" || exit
